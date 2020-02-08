@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">taskline</string>
+    <string name="user_id">user id</string>
+    <string name="password">Password</string>
+    <string name="log_in">Log in</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="task_name">task_name</string>
+    <string name="descriptiion">description</string>
+    <string name="taskbutton">View Details!</string>
+    <string name="myTask">MyTask</string>
+    <string name="teamTask">Team Task</string>
+    <string name="allTask">All Task</string>
+    <string name="createTask">Create Task!!</string>
+    <string name="name">name</string>
+    <string name="dueDate">Due Date</string>
+    <string name="assignee">Assignee</string>
+    <string name="reportTo">Report To</string>
+</resources>
