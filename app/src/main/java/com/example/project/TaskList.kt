@@ -1,6 +1,8 @@
 package com.example.project
 
 import android.app.VoiceInteractor
+import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.JsonToken
@@ -20,6 +22,7 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.google.gson.JsonObject
 import kotlinx.android.synthetic.main.activity_task_list.*
+import kotlinx.android.synthetic.main.list_row.*
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
@@ -29,8 +32,11 @@ class TaskList : AppCompatActivity() {
     private var taskAdapter : TaskListAdapter ?= null
     private var taskList : ArrayList<Task> ?= null
     private var layoutManager : RecyclerView.LayoutManager ?= null
+    lateinit var u_id : String
+    lateinit var token_id:String
 
     var volleyRequest : RequestQueue ?= null
+    //var a :HashMap? = nullsFirst<>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,34 +59,60 @@ class TaskList : AppCompatActivity() {
         if(data != null){
             var url = data.get("url").toString()
             getallTask(url)
+            retrieveData()
+
         }
+
+
+
+
 
     }
 //    fun createUrl(id:String,token:String):String{
 //        return "https://task-line.herokuapp.com/User/$id/tasks/all?key=$token"
 //    }
-    fun getallTask(url : String) {
+    public fun getallTask(url : String) {
+    println("it worked!!!!!")
         val taskRequest = JsonArrayRequest(Request.Method.GET
             ,url,null,
             Response.Listener {
                 response : JSONArray ->
                 try {
+                    println("aaaaaaaaaaaaaaaaaaaaaa")
                     Log.d("response: ",response.toString())
                     //loooping for card data
                     var resparray = response
                     println("***************  $resparray")
+                    println("%%%%%%%%%%${resparray.length()}")
                     for(i in 0 until resparray.length()){
 
                         var taskobj = resparray.getJSONObject(i)
-                        //println(taskobj)
+                        println(taskobj)
 
 
                         var name = taskobj.getString("name")
                         var description = taskobj.getString("description")
+                        try {
+                             var priority = taskobj.getString("priority")
+                        }catch (e:JSONException){
+                            var priority = "boli maga"
+                        }
+                        var dueDate = taskobj.getString("due_date")
+                        var assignee = taskobj.getString("assignee")
+                        var reportTo = taskobj.getString("report_to")
+//                        var id = taskobj.getInt("id")
+                        var progress = taskobj.getString("progress")
+
 
                         var task = Task()
                         task.name = name
                         task.description = description
+                        task.priority = "Priority :$priority"
+                        task.due_date = "DueDate :${dueDate}"
+                        task.assignee = "Assignee :$assignee"
+                        task.report_to = "reportTo :$reportTo"
+                        task.progress = "Progress : $progress"
+//                        task.id = id
 
                         taskList!!.add(task)
 
@@ -96,12 +128,14 @@ class TaskList : AppCompatActivity() {
                     taskAdapter!!.notifyDataSetChanged()
 
                 } catch (e : JSONException) {
+                    println("qqqqqqqqqqqqqqqqqqqqqqqqqqqq")
                     e.printStackTrace()
                 }
             },
             Response.ErrorListener { 
                 error : VolleyError? ->
                 try {
+
                     Log.d("Error:",error.toString())
                 } catch (e:JSONException) {
                     e.printStackTrace()
@@ -118,18 +152,38 @@ class TaskList : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item?.itemId) {
+        when(item.itemId) {
             R.id.sort -> {
-                Toast.makeText(this,"sort is selected", Toast.LENGTH_LONG).show()
+//                retrieveData()
+//                val s_url = "https://task-line.herokuapp.com/
+                //Toast.makeText(this,"sort is selected", Toast.LENGTH_LONG).show()
                 return super.onOptionsItemSelected(item)
             }
 
             R.id.item1 -> {
-                Toast.makeText(this,"log out is selected", Toast.LENGTH_LONG).show()
+                var log =Task()
+                retrieveData()
+                var l_url = "https://task-line.herokuapp.com/User/$u_id/logout"
+                log.logout(this, l_url)
+                var intentt = Intent(this,MainActivity::class.java)
+                startActivity(intentt)
                 return super.onOptionsItemSelected(item)
             }
             else -> return super.onOptionsItemSelected(item)
         }
+
+    }
+    fun retrieveData() {
+        val mypref = getSharedPreferences("mypref", Context.MODE_PRIVATE)
+        u_id = mypref.getString("user_id","").toString()
+        token_id = mypref.getString("token_id","").toString()
+        println(u_id)
+        //println(token_id)
+    }
+    public fun getuidtoken(): String {
+//        retrieveData()
+        println(u_id)
+        return u_id
 
     }
 }

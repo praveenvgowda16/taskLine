@@ -11,30 +11,29 @@
         android:id="@+id/myTaskButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="20dp"
         android:background="@drawable/button_background"
         android:text="@string/myTask"
         android:textAllCaps="false"
         android:textSize="21sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/teamTaskButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.172" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/teamTaskButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="532dp"
+        android:layout_marginBottom="20dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/button_background"
         android:text="@string/teamTask"
         android:textAllCaps="false"
         android:textSize="21sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/allTaskButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -46,24 +45,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="464dp"
+        android:layout_marginBottom="20dp"
         android:background="@drawable/button_background"
         android:text="@string/allTask"
         android:textAllCaps="false"
         android:textSize="21sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/createTaskButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/teamTaskButton"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/teamTaskButton" />
 
     <Button
         android:id="@+id/createTaskButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="212dp"
+        android:layout_marginBottom="131dp"
         android:background="@drawable/button_background"
         android:text="@string/createTask"
         android:textAllCaps="false"
@@ -73,7 +71,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/allTaskButton"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.527" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

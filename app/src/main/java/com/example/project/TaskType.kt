@@ -49,9 +49,11 @@ class TaskType : AppCompatActivity() {
 
         teamTaskButton.setOnClickListener{
 
-            url = "https://task-line.herokuapp.com/User/$u_id/tasks/team?key=$token_id"
-            //print("3333333333 $url")
-            startActivity(intent)
+            var inten = Intent(this,Teams::class.java)
+            url = "https://task-line.herokuapp.com/User/$u_id/team/all?key=$token_id"
+//            print("3333333333 $url")
+            inten.putExtra("url",url)
+            startActivity(inten)
         }
 
         allTaskButton.setOnClickListener {
@@ -77,9 +79,13 @@ class TaskType : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item?.itemId) {
+        when(item.itemId) {
             R.id.item1 -> {
-                Toast.makeText(this,"item1 is selected",Toast.LENGTH_LONG).show()
+                var log =Task()
+                var l_url = "https://task-line.herokuapp.com/User/$u_id/logout"
+                log.logout(this, l_url)
+                var intentt = Intent(this,MainActivity::class.java)
+                startActivity(intentt)
                 return super.onOptionsItemSelected(item)
             }
             else -> return super.onOptionsItemSelected(item)
@@ -87,7 +93,7 @@ class TaskType : AppCompatActivity() {
 
     }
     fun retrieveData() {
-        val mypref = getSharedPreferences("mypref",Context.MODE_PRIVATE)
+        val mypref = application.getSharedPreferences("mypref",Context.MODE_PRIVATE)
         u_id = mypref.getString("user_id","").toString()
         token_id = mypref.getString("token_id","").toString()
         println(u_id)

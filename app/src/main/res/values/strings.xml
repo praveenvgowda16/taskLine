@@ -17,4 +17,7 @@
     <string name="dueDate">Due Date</string>
     <string name="assignee">Assignee</string>
     <string name="reportTo">Report To</string>
+    <string name="due_date">due date</string>
+    <string name="mark_done">done</string>
+    <string name="progress">progress</string>
 </resources>
